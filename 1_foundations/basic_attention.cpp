@@ -1,37 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <iomanip> // For std::setprecision
-
-// SoftMax function, takes a vector and returns the SoftMax probabilities
-std::vector < double > softmax(const std::vector < double > & input) {
-  // declare output vector
-  std::vector < double > output(input.size());
-
-  // compute max value for numerical stability
-  double max_val = * std::max_element(input.begin(), input.end());
-  double sum = 0.0;
-
-  for (size_t i = 0; i < input.size(); i++) {
-    output[i] = std::exp(input[i] - max_val);
-    sum += output[i];
-  }
-
-  for (size_t i = 0; i < output.size(); ++i) {
-    output[i] /= sum;
-  }
-  return output;
-}
-
-// dot product Function
-double dot_product(const std::vector < double > & a,
-  const std::vector < double > & b) {
-  double result = 0.0;
-  for (size_t i = 0; i < a.size(); ++i) {
-    result += a[i] * b[i];
-  }
-  return result;
-}
+#include "math_utils.h"
 
 // core attention function
 std::vector < double > attention(const std::vector < double > & query,
@@ -101,7 +71,7 @@ int main() {
   // compute attention output
   std::vector < double > output = attention(query, keys, values);
   // print output
-  std::cout << "Attention Output: ";
+  std::cout << "Basic attention Output: ";
   for (const auto & val: output) {
     std::cout << std::setprecision(4) << val << " ";
   }
